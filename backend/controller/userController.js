@@ -33,19 +33,29 @@ exports.loginUser = async (req, res) => {
 
         // Check if user exists
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: "Invalid credentials" });
+        if (!user) return res.status(400).json({ message: "Invalid credentials (user not exist)" });
 
         // Compare password
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+        if (!isMatch) return res.status(400).json({ message: "Invalid credentials (incorrect password)" });
 
         // Generate JWT Token
-        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "24h" });
 
         res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
     }
+};
+
+//log out user
+exports.logoutUser = (req, res) => {
+    const authHeader = req.header("Authorization");
+    if (!authHeader) return res.status(401).json({ message: "No token provided" });
+
+    const token = authHeader.split(" ")[1];  // Extract token
+    blacklist.add(token);  // Add token to blacklist
+    res.json({ message: "Logged out successfully" });
 };
 
 // Get user profile

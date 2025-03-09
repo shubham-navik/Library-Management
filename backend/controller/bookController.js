@@ -1,4 +1,5 @@
 const Book = require("../models/Book");
+const User = require("../models/User");
 
 // @desc    Add a new book
 // @route   POST /api/books
@@ -13,8 +14,9 @@ const addBook = async (req, res) => {
       return res.status(400).json({ message: "Book with this ISBN already exists" });
     }
 
-    const book = new Book({ title, author, isbn, category, publishedYear, copiesAvailable });
+    const book = new Book({ title, author, isbn, category, publishedYear, copiesAvailable ,addedBy:req.user.id});
     await book.save();
+    
 
     res.status(201).json({ message: "Book added successfully", book });
   } catch (error) {

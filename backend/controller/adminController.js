@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Book = require("../models/Book");
 const { route } = require("../routes/bookRoute");
 
 //find all users
@@ -32,6 +33,16 @@ exports.deleteUser = async (req, res) => {
         });
         await User.findByIdAndDelete(req.params.id);
         res.json({ message: "User deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+}
+
+//get all book by admin id
+exports.getAllBooksByAdmin = async (req, res) => {
+    try {
+        const books = await Book.find({ addedBy: req.params.id });
+        res.json({ message: "total "+`${books.length}`+ " books", books });
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
     }
