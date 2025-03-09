@@ -2,7 +2,7 @@ const Book = require("../models/Book");
 
 // @desc    Add a new book
 // @route   POST /api/books
-// @access  Public
+// @access  Public 
 const addBook = async (req, res) => {
   try {
     const { title, author, isbn, category, publishedYear, copiesAvailable } = req.body;

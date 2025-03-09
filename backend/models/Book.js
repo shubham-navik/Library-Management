@@ -12,6 +12,10 @@ const bookSchema = new mongoose.Schema(
       required: [true, "Author is required"],
       trim: true,
     },
+    addedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     isbn: {
       type: String,
       unique: true,
