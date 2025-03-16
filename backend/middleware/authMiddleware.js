@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 exports.authMiddleware = (req, res, next) => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2RlMzA0ZTM1NWRmMWZlNTQ5NGFiMCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0MTU0NjI3MywiZXhwIjoxNzQxNjMyNjczfQ.uqjELkZ9zvHN2GTkg115ZOmGlcOL6ibCc-ul9dbkBLg";
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2RlOWNhMmYxNThjNDMxMDJhN2QxMiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQyMTA0NzM1LCJleHAiOjE3NDIxOTExMzV9.loH1adVEaJlCSTR0KgrDUKmqN5SnS6NDQYcx9y1XbO0";
     console.log("token : ",token);
     if (!token) return res.status(401).json({ message: "Access denied, no token provided" });
 

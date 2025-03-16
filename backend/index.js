@@ -6,6 +6,7 @@ require("dotenv").config();
 const bookroutes = require("./routes/bookRoute");
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoute");
+const requesBookRoutes = require("./routes/requestRoute");
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ connectDB();
 app.use("/api/books", bookroutes);
 app.use("/api/users", userRoutes);
 app.use("/api/admins", adminRoutes);
+app.use("/api/requests", requesBookRoutes);
 
 app.use("/", (req,res)=>
 {
